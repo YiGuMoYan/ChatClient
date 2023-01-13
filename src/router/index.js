@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import WebSocket from '@/components/WebSocket.vue'
+import Login from '@/views/Login.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: WebSocket
+    component: Login
   }
 ]
 
