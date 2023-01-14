@@ -67,6 +67,8 @@ export default {
         data: that.loginForm
       }).then(function (res) {
         if (res.data.data) {
+          const token = res.data.data
+          that.$cookie.set('token', token)
           that.$message.success('登录成功')
         } else {
           that.$message.error('登录失败')
