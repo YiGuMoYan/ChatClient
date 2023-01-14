@@ -23,20 +23,25 @@
               <el-checkbox v-model="isSave">记住密码</el-checkbox>
             </el-col>
             <el-col :span="8">
-              <a @click="register()" class="register-font">创建账号</a>
+              <a @click="register()" class="register-font">注册账号</a>
             </el-col>
           </el-row>
         </div>
       </el-form-item>
-      <el-button type="primary" width="400px">登录</el-button>
+      <el-button type="primary" width="400px" @click="login">登录</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
 import Bus from '@/Bus'
+import { getCurrentInstance } from 'vue'
+import axios from 'axios'
 
 export default {
+  setup () {
+    return getCurrentInstance()
+  },
   mounted () {
     $('.login-form').fadeTo(1000, 1)
   },
@@ -53,6 +58,20 @@ export default {
   methods: {
     register () {
       Bus.$emit('register')
+    },
+    login () {
+      const that = this
+      axios({
+        url: that.$url + '/account/login',
+        method: 'post',
+        data: that.loginForm
+      }).then(function (res) {
+        if (res.data.data) {
+          that.$message.success('登录成功')
+        } else {
+          that.$message.error('登录失败')
+        }
+      })
     }
   }
 }
@@ -78,7 +97,7 @@ export default {
     padding-left: .5rem;;
   }
 
-  input:focus~, input:hover {
+  input:focus ~, input:hover {
     border-bottom-color: #409EFF;
   }
 

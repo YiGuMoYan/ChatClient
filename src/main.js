@@ -17,6 +17,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
+app.config.globalProperties.$url = 'http://127.0.0.1:8080/chat'
+
 app.use(router)
 app.use(ElementPlus)
 app.mount('#app')
