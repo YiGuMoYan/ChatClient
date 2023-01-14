@@ -4,52 +4,34 @@
       <div class="image"><img src="./../assets/logo.png" alt=""></div>
     </div>
     <div class="bottom">
-      <div class="login-form">
-        <el-form :model="loginForm" label-width="80%">
-          <el-form-item>
-            <input
-              type="text"
-              placeholder="请输入账号"
-              v-model="loginForm.id"/>
-          </el-form-item>
-          <el-form-item>
-            <input
-              type="password"
-              placeholder="请输入密码"
-              v-model="loginForm.password"/>
-          </el-form-item>
-          <el-form-item>
-            <div style="width: 100%">
-              <el-row>
-                <el-col :span="8">
-                  <el-checkbox v-model="autoLogin">自动登录</el-checkbox>
-                </el-col>
-                <el-col :span="8">
-                  <el-checkbox v-model="isSave">记住密码</el-checkbox>
-                </el-col>
-                <el-col :span="8">
-                  <a href="#">创建账号</a>
-                </el-col>
-              </el-row>
-            </div>
-          </el-form-item>
-          <el-button type="primary" width="400px">登录</el-button>
-        </el-form>
-      </div>
+      <login-form v-if="type === 1"/>
+      <register-form v-else-if="type === 2"/>
     </div>
   </div>
 </template>
 
 <script>
+import LoginForm from '@/components/Login/LoginForm.vue'
+import RegisterForm from '@/components/Login/RegisterForm.vue'
+import Bus from '@/Bus'
+
 export default {
+  components: { LoginForm, RegisterForm },
+  mounted () {
+    Bus.$on('register', () => {
+      $('.login').css('height', '80%')
+      $('login-form').fadeTo(1000, 0)
+      this.type = 2
+    })
+    Bus.$on('login', () => {
+      $('.login').css('height', '50%')
+      $('register-form').fadeTo(1000, 0)
+      this.type = 1
+    })
+  },
   data () {
     return {
-      loginForm: {
-        id: '',
-        password: ''
-      },
-      autoLogin: false,
-      isSave: false
+      type: 1
     }
   }
 }
@@ -65,6 +47,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: all .3s;
 
   .top {
     width: 100%;
@@ -113,49 +96,6 @@ export default {
       margin-left: 0 !important;
       margin-right: 0 !important;
       width: 100%;
-    }
-
-    .login-form {
-      padding-top: 40px;
-      padding-left: 15%;
-      padding-right: 15%;
-
-      input {
-        width: 100%;
-        height: 30px;
-        border-top-width: 0;
-        border-left-width: 0;
-        border-right-width: 0;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-        border-color: #A8ABB2;
-        outline: none;
-        padding-left: .5rem;;
-      }
-
-      input:focus~, input:hover {
-        border-bottom-color: #409EFF;
-      }
-
-      input::-webkit-input-placeholder {
-        position: relative;
-        color: #A8ABB2;
-      }
-
-      .el-button {
-        width: 100%;
-      }
-
-      .el-col {
-        text-align: center;
-      }
-
-      a {
-        color: #606266;
-        text-decoration: none;
-        user-select: none;
-        display: block;
-      }
     }
   }
 
