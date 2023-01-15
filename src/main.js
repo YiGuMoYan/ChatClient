@@ -7,6 +7,8 @@ import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import '@/assets/css/global.css'
+import '@/assets/js/cookie'
+
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import $ from 'jquery'
@@ -22,5 +24,8 @@ app.config.globalProperties.$url = 'http://127.0.0.1:8080/chat'
 app.config.globalProperties.$cookie = Cookie
 
 app.use(router)
+
+router.app = app
+
 app.use(ElementPlus)
 app.mount('#app')

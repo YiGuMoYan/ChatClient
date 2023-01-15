@@ -2,11 +2,11 @@
   <div class="list-card">
     <div>
       <el-badge :value="messageNum" :hidden="isHidden">
-        <el-avatar size="large"> {{ name[0] }} </el-avatar>
+        <el-avatar size="large"> {{ account.name[0] }} </el-avatar>
       </el-badge>
     </div>
     <div class="message">
-      <div class="name">{{ name }}</div>
+      <div class="name">{{ account.name }}</div>
     </div>
   </div>
 </template>
@@ -31,7 +31,9 @@ export default {
   },
   data () {
     return {
-      name: '',
+      account: {
+        name: ''
+      },
       messageNum: 0,
       isHidden: true
     }
@@ -48,13 +50,13 @@ export default {
       }).then(function (res) {
         if (res.data.code === 200) {
           if (res.data.data) {
-            that.name = res.data.data.name
+            that.account = res.data.data
           } else {
             that.$message.error('请求账号异常')
           }
         } else {
           that.$message.error('登录异常，请重新登录')
-          that.$route.push('/login')
+          that.$router.push('/login')
         }
       })
     }
@@ -71,17 +73,16 @@ export default {
 .list-card {
   width: 90%;
   height: 60px;
-  background: var(--el-color-primary-light-9);
+  background-color: #F0F0F1;
   display: flex;
   align-items: center;
-  border-radius: 5px;
   padding: 5%;
   float: left;
+  user-select: none;
 
   div {
     .el-avatar {
       text-align: center;
-      user-select: none;
       border-right: 1px solid var(--el-border-color);
       font-size: 28px;
     }
@@ -96,8 +97,13 @@ export default {
       display: block;
       height: 60%;
       width: 100%;
-      font-size: 25px;
+      font-size: 20px;
+      font-weight: 600;
     }
   }
+}
+
+.list-card:hover {
+  background-color: #E4E4E6;
 }
 </style>

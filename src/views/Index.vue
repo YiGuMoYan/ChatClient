@@ -14,6 +14,8 @@
 
 <script>
 import Aside from '@/components/Index/Aside.vue'
+import { getCurrentInstance } from 'vue'
+import axios from 'axios'
 
 export default {
   name: 'Index',
