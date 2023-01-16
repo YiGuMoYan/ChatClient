@@ -2,7 +2,40 @@
   <el-container>
     <el-header class="aside-head">{{ account.name }}</el-header>
     <el-container>
-      <el-aside class="aside-aside">Aside</el-aside>
+      <el-aside class="aside-aside">
+        <div class="icon" id="icon1" @click="setIndex(1)">
+          <div>
+            <el-icon :size="35">
+              <ChatDotRound/>
+            </el-icon>
+          </div>
+          <div>好友</div>
+        </div>
+        <div class="icon" id="icon2" @click="setIndex(2)">
+          <div>
+            <el-icon :size="35">
+              <Message/>
+            </el-icon>
+          </div>
+          <div>群聊</div>
+        </div>
+        <div class="icon" id="icon3" @click="setIndex(3)">
+          <div>
+            <el-icon :size="35">
+              <Plus/>
+            </el-icon>
+          </div>
+          <div>添加</div>
+        </div>
+        <div class="icon" id="icon4" @click="setIndex(4)">
+          <div>
+            <el-icon :size="35">
+              <Tools/>
+            </el-icon>
+          </div>
+          <div>设置</div>
+        </div>
+      </el-aside>
       <el-main class="aside-main">
         <el-scrollbar class="aside-main-scrollbar">
           <list-card v-for="item in accountList" :id="item" :key="item" class="list-card"/>
@@ -30,7 +63,8 @@ export default {
   data () {
     return {
       account: {},
-      accountList: []
+      accountList: [],
+      index: 1
     }
   },
   methods: {
@@ -67,6 +101,13 @@ export default {
           that.$router.path('/login')
         }
       })
+    },
+    setIndex (id) {
+      if (this.index !== id) {
+        $('#icon' + this.index).css('background-color', 'initial')
+        this.index = id
+        $('#icon' + this.index).css('background-color', '#434343')
+      }
     }
   }
 }
@@ -80,19 +121,48 @@ export default {
   font-weight: 600;
   line-height: 10vh;
   text-align: center;
+  border-right: solid 1px #E8E8E8;
+  border-bottom: solid 1px #E8E8E8;
 }
 
 .aside-aside {
   width: 20%;
   height: 90vh;
   background-color: #2E2E2E;
+  color: white;
+  padding: 15% 2% 2%;
+  user-select: none;
+  text-align: center;
+  transition: all .1s;
+
+  .icon {
+    margin-bottom: 40px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 8px;
+  }
+
+  .icon:hover {
+    cursor: pointer;
+    background-color: #434343;
+  }
+
+  .icon:last-child {
+    margin-bottom: 0;
+  }
+
+  #icon1 {
+    background-color: #434343;
+  }
 }
 
 .aside-main {
   padding: 0;
+  border-right: solid 1px #E8E8E8;
 
   .aside-main-scrollbar {
     height: 90vh;
   }
 }
+
 </style>

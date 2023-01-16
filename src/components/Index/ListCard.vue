@@ -73,7 +73,7 @@ export default {
 .list-card {
   width: 90%;
   height: 60px;
-  background-color: #F0F0F1;
+  background-color: #EAE8E7;
   display: flex;
   align-items: center;
   padding: 5%;
@@ -104,6 +104,6 @@ export default {
 }
 
 .list-card:hover {
-  background-color: #E4E4E6;
+  background-color: #DBDAD9;
 }
 </style>

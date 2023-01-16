@@ -4,22 +4,18 @@
       <el-aside class="aside">
         <Aside/>
       </el-aside>
-      <el-container>
-        <el-header>Header</el-header>
-        <el-main>Main</el-main>
-      </el-container>
+      <Main />
     </el-container>
   </div>
 </template>
 
 <script>
 import Aside from '@/components/Index/Aside.vue'
-import { getCurrentInstance } from 'vue'
-import axios from 'axios'
+import Main from '@/components/Index/Main.vue'
 
 export default {
   name: 'Index',
-  components: { Aside }
+  components: { Main, Aside }
 }
 </script>
 
