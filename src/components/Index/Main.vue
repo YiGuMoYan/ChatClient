@@ -3,7 +3,14 @@
     <el-header class="main-head"> {{name}} </el-header>
     <el-main>
       <el-container>
-        <el-main  class="main-main">main</el-main>
+        <el-main  class="main-main">
+          <el-scrollbar max-height="60vh">
+            <div v-for="item in 50" :key="item" class="message">
+              <account-message-left v-if="item % 2" :message="item.toString()" name="匿名用户"/>
+              <account-message-right v-else :message="item.toString()" name="张三"/>
+            </div>
+          </el-scrollbar>
+        </el-main>
         <el-footer class="main-footer">
           <div class="input">
             <textarea/>
@@ -17,8 +24,12 @@
 
 <script>
 import { getCurrentInstance } from 'vue'
+import AccountMessageLeft from '@/components/Index/AccountMessageLeft.vue'
+import AccountMessageRight from '@/components/Index/AccountMessageRight.vue'
 
 export default {
+  // eslint-disable-next-line vue/no-unused-components
+  components: { AccountMessageRight, AccountMessageLeft },
   props: {
     id: {
       type: String,
@@ -74,6 +85,12 @@ export default {
     border-top: solid 1px #E8E8E8;
     border-bottom: solid 1px #E8E8E8;
     height: 60vh;
+
+    .message {
+      width: 100%;
+      margin-top: 20px;
+      height: 100%;
+    }
   }
 
   .main-footer {
@@ -85,7 +102,6 @@ export default {
     .input {
       width: 100%;
       height: 75%;
-      background-color: red;
 
       textarea {
         width: 100%;
@@ -96,6 +112,7 @@ export default {
         font-size: 20px;
         outline: none;
         font-weight: 500;
+        background-color: #F5F5F5;
       }
     }
 
